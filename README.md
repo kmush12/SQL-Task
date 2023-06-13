@@ -9,7 +9,7 @@ This is a simple project to transform records in a database.
 $ docker pull postgres
 $ docker run -itd -e POSTGRES_USER=task -e POSTGRES_PASSWORD=task -p 5432:5432 -v /data:/var/lib/postgresql/data --name postgresql postgres
 $ docker exec -it postgresql bash
-$ psql -h localhost _U task
+$ psql -h localhost postgres task
 ```
 
 ## Usage
