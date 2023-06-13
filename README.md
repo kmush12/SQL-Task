@@ -139,7 +139,7 @@ SELECT
 		    END AS age_band,
 	(DATE_PART('day', join_date) - 1) AS j_day,
 	(DATE_PART('month', join_date)) AS j_month,
-	(DATE_PART('month', join_date)) AS j_year,
+	(DATE_PART('year', join_date)) AS j_year,
     	postal_sector,
     	handset_model,
     	handset_manufacturer,
