@@ -111,11 +111,18 @@ DELIMITER ',';
  
 SELECT 
 	msisdn, 
-	email_adress,            
+	email_adress,
+	CASE
+                WHEN age < 18 THEN '<18'
+                WHEN age BETWEEN 18 AND 25 THEN '18-25'
+                WHEN age BETWEEN 26 AND 35 THEN '26-35'
+                WHEN age BETWEEN 36 AND 45 THEN '36-45'
+                ELSE '>45'
+            END AS age_band,
   CASE    WHEN gender = 'male' THEN 'M' 
           WHEN gender = 'female' THEN 'F' 
           ELSE 'U' 
-          END AS age_band,
+          END AS gender,
     (DATE_PART('day', join_date) - 1) AS j_day,
     (DATE_PART('month', join_date)) AS j_month,
     (DATE_PART('year', join_date)) AS j_year,
