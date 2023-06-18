@@ -4,11 +4,11 @@ This is a simple project to transform records in a database.
 
 ## Table of contents
 * [Installation](#installation)
-* [TASK 1](#task_1)
-* [TASK 2](#task_2)
-* [A.](##a.)
-* [B.](##b.)
-* [C.](##c.)
+* [Task 1](#task_1)
+* [Task 2](#task_2)
+*   [A.](##a.)
+*  -[B.](##b.)
+* -[C.](##c.)
 * [D.](##d.)
   
 ## Installation
@@ -21,7 +21,7 @@ $ docker exec -it postgresql bash
 $ psql -h localhost postgres task
 ```
 
-## TASK 1
+## Task 1
 ### Create table input
 ```sql
 CREATE TABLE input_tab
@@ -194,7 +194,7 @@ postal_sector,
 ```
 
 <a name="task_2"></a>
-## TASK 2
+## Task 2
 
 <a name="a."></a>
 ### A. 
