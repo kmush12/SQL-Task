@@ -216,6 +216,8 @@ Output:
 
 ![Algorithm schema](https://github.com/kmush12/SQL-Task/blob/master/tab_a2.png?raw=true)
 
+The output table is empty because the contract expiration date in the input file does not exceed 2016
+
 <a name="b."></a>
 ### B. 
 #### In which month did the most subscribers connect (join_date) and in which the least?
