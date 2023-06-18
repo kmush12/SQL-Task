@@ -183,9 +183,8 @@ postal_sector,
  post_optin_ind,
  all_marketing_optin_ind FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 ```
-### A The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
-
+### A. The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
 ```SQL
 SELECT msisdn, email_address
@@ -197,7 +196,7 @@ FROM (SELECT *
 select * from OUTPUT_TAB;
 ```
 
-### B In which month did the most subscribers connect (join_date) and in which the least?
+### B. In which month did the most subscribers connect (join_date) and in which the least?
 
 V1. W 2 zapytaniach 
 ```SQL
@@ -221,30 +220,39 @@ FROM output_tab
 GROUP BY j_month)b1);
 ```
 
-V2 W 1 zapytaniu
+V2. W 1 zapytaniu
 ```SQL
-SELECT j_month AS max_j_month, count(j_month) as most_subs_connected
-FROM output_tab  GROUP BY j_month 
-HAVING COUNT (j_month)=( 
-SELECT MAX(mycount) 
-FROM ( 
-SELECT j_month, COUNT(j_month) mycount 
-FROM output_tab 
-GROUP BY j_month)b1);
 
-
-SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
-FROM output_tab  GROUP BY j_month 
-HAVING COUNT (j_month)=( 
-SELECT min(mycount) 
-FROM ( 
-SELECT j_month, COUNT(j_month) mycount 
-FROM output_tab 
-GROUP BY j_month)b1);
+SELECT max_j_month, most_subs_connected, min_j_month, least_subs_connected
+FROM  (SELECT j_month AS max_j_month, count(j_month) AS most_subs_connected
+        FROM output_tab  
+        GROUP BY j_month 
+        HAVING COUNT (j_month)=( 
+                                SELECT MAX(mycount) 
+                                FROM ( 
+                                        SELECT j_month, COUNT(j_month) mycount 
+                                        FROM output_tab 
+                                        GROUP BY j_month
+                                    ) b1
+                                )
+        ) max,
+       (SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
+        FROM output_tab  GROUP BY j_month 
+        HAVING COUNT (j_month)=( 
+                                SELECT min(mycount) 
+                                FROM ( 
+                                        SELECT j_month, COUNT(j_month) mycount 
+                                        FROM output_tab 
+                                        GROUP BY j_month
+                                    ) b1
+                                )
+        ) min;
 ```
 
-### C Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
-WERSJA 1
+### C. Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
+
+V 1. Szybsza metoda lecz zwraca tylko 1 rekord
+
 ```SQL
 SELECT age_band, SUM(avg_3_mths_spend)
 FROM output_tab
@@ -252,7 +260,7 @@ GROUP BY age_band
 ORDER BY SUM(avg_3_mths_spend) DESC
 LIMIT 1;
 ```
-WERSJA 2
+V 2. 
 
 ```SQL
 SELECT age_band, max(b1.sum_of_spend) as max_avg_3_mths_spend_sum
@@ -266,7 +274,7 @@ FROM    (SELECT age_band, (sum(avg_3_mths_spend_group)) AS sum_of_spend
 GROUP BY  age_band;
 ```
 
-### D Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
+### D. Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
 
 ```SQL
 SELECT calls.tariff_name AS best_tariff_name_calls, sms.tariff_name AS best_tariff_name_sms, datas.tariff_name AS best_tariff_name_data
@@ -284,17 +292,6 @@ FROM output_tab
 WHERE avg_3_mths_data_usage = (SELECT MAX(avg_3_mths_data_usage) 
 FROM output_tab)) datas;
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 ## License
 
