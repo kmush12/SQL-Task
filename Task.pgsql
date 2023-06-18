@@ -180,13 +180,24 @@ SELECT
     texts_optin_ind,
     email_optin_ind,
     phone_optin_ind,
-    post_optin_ind,
+    post_optin_ind,SELECT 
+  msisdn, 
+  email_address 
+FROM 
+  input_tab 
+WHERE 
+  age < '30' 
+  AND contract_end_dt >= CURRENT_DATE 
+  AND email_optin_ind = 'Y' 
+  AND (msisdn, subscr_id, email_address) is NOT NULL;
     all_marketing_optin_ind
 	FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 
 --Task2
 
 --A
+
+
 
 SELECT 
   msisdn, 
@@ -195,7 +206,7 @@ FROM
   input_tab 
 WHERE 
   age < '30' 
-  AND contract_end_dt <= CURRENT_DATE 
+  AND contract_end_dt >= CURRENT_DATE 
   AND email_optin_ind = 'Y' 
   AND (msisdn, subscr_id, email_address) is NOT NULL;
 
