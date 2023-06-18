@@ -2,7 +2,15 @@
 
 This is a simple project to transform records in a database.
 
-
+## Table of contents
+* [Installation](#installation)
+* [TASK 1](#TASK 1)
+* [TASK 2](#TASK 2)
+* [A.](#a.)
+* [B.](#b.)
+* [C.](#c.)
+* [D.](#d.)
+* 
 ## Installation
 
 ```bash
@@ -187,7 +195,7 @@ postal_sector,
 ## TASK 2
 
 ### A. 
-### The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
+#### The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
 ```SQL
 SELECT 
@@ -206,7 +214,7 @@ Output:
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
 ### B. 
-### In which month did the most subscribers connect (join_date) and in which the least?
+#### In which month did the most subscribers connect (join_date) and in which the least?
 
 V1. In 2 queries
 
@@ -288,7 +296,7 @@ Output:
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v2.png?raw=true)
 
 ### C. 
-### Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
+#### Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
 
 V 1. Szybsza metoda lecz zwraca tylko 1 rekord
 
@@ -314,7 +322,7 @@ GROUP BY  age_band;
 ```
 
 ### D. 
-### Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
+#### Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
 
 ```SQL
 SELECT 
