@@ -183,9 +183,9 @@ postal_sector,
  post_optin_ind,
  all_marketing_optin_ind FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 ```
-### A
+### A The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
-The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
+
 
 ```SQL
 SELECT msisdn, email_address
@@ -198,6 +198,30 @@ select * from OUTPUT_TAB;
 ```
 
 ### B In which month did the most subscribers connect (join_date) and in which the least?
+
+V1. W 2 zapytaniach 
+```SQL
+SELECT j_month AS max_j_month, count(j_month) as most_subs_connected
+FROM output_tab  GROUP BY j_month 
+HAVING COUNT (j_month)=( 
+SELECT MAX(mycount) 
+FROM ( 
+SELECT j_month, COUNT(j_month) mycount 
+FROM output_tab 
+GROUP BY j_month)b1);
+
+
+SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
+FROM output_tab  GROUP BY j_month 
+HAVING COUNT (j_month)=( 
+SELECT min(mycount) 
+FROM ( 
+SELECT j_month, COUNT(j_month) mycount 
+FROM output_tab 
+GROUP BY j_month)b1);
+```
+
+V2 W 1 zapytaniu
 ```SQL
 SELECT j_month AS max_j_month, count(j_month) as most_subs_connected
 FROM output_tab  GROUP BY j_month 
