@@ -208,7 +208,7 @@ FROM
   input_tab 
 WHERE 
   age < '30' 
-  AND contract_end_dt <= CURRENT_DATE 
+  AND contract_end_dt >= CURRENT_DATE 
   AND email_optin_ind = 'Y' 
   AND (msisdn, subscr_id, email_address) is NOT NULL;
 ```
