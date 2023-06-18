@@ -11,7 +11,7 @@ This is a simple project to transform records in a database.
 * [C.](#c.)
 * [D.](#d.)
   
-## Installation
+## Instalation
 
 ```bash
 $ docker pull postgres
