@@ -7,8 +7,8 @@ This is a simple project to transform records in a database.
 * [TASK 1](##task_1)
 * [TASK 2](#task_2)
 * [A.](#a.)
-* [B.](##b.)
-* [C.](##c.)
+* [B.](#b.)
+* [C.](#c.)
 * [D.](#d.)
 * 
 ## Installation
@@ -192,6 +192,8 @@ postal_sector,
  post_optin_ind,
  all_marketing_optin_ind FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 ```
+
+<a name="task_2"></a>
 ## TASK 2
 
 <a name="a."></a>
@@ -214,6 +216,7 @@ Output:
 
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
+<a name="b."></a>
 ### B. 
 #### In which month did the most subscribers connect (join_date) and in which the least?
 
@@ -296,6 +299,7 @@ Output:
 
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v2.png?raw=true)
 
+<a name="c."></a>
 ### C. 
 #### Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
 
@@ -322,6 +326,7 @@ FROM    (SELECT age_band, (sum(avg_3_mths_spend_group)) AS sum_of_spend
 GROUP BY  age_band;
 ```
 
+<a name="d."></a>
 ### D. 
 #### Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
 
