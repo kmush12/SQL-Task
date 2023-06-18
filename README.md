@@ -186,7 +186,8 @@ postal_sector,
 ```
 ## TASK 2
 
-### A. The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
+### A. 
+### The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
 ```SQL
 SELECT 
@@ -204,7 +205,8 @@ Output:
 
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
-### B. In which month did the most subscribers connect (join_date) and in which the least?
+### B. 
+### In which month did the most subscribers connect (join_date) and in which the least?
 
 V1. In 2 queries
 
@@ -234,6 +236,7 @@ HAVING
   );
 ```
 Output:
+
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v1_max.png?raw=true)
 
 The least subscribers connect:
@@ -248,6 +251,7 @@ FROM output_tab
 GROUP BY j_month)b1);
 ```
 Output:
+
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v1_min.png?raw=true)
 
 V2. In 1 query
@@ -280,9 +284,11 @@ FROM  (SELECT j_month AS max_j_month, count(j_month) AS most_subs_connected
 ```
 
 Output:
+
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v2.png?raw=true)
 
-### C. Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
+### C. 
+### Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
 
 V 1. Szybsza metoda lecz zwraca tylko 1 rekord
 
@@ -307,7 +313,8 @@ FROM    (SELECT age_band, (sum(avg_3_mths_spend_group)) AS sum_of_spend
 GROUP BY  age_band;
 ```
 
-### D. Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
+### D. 
+### Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
 
 ```SQL
 SELECT 
@@ -359,6 +366,7 @@ FROM
   ) datas;
 ```
 Output:
+
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_d.png?raw=true)
 ## License
 
