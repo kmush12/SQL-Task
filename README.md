@@ -82,7 +82,7 @@ COPY input_tab(msisdn,subscr_id,
     postal_sector,
     handset_model,
     handset_manufacturer,
-    needs_segment_name,
+    needs_segment_nameOutput:,
     smart_phone_ind,
     operating_system_name,
     lte_subscr_ind,
@@ -200,8 +200,9 @@ WHERE
   AND email_optin_ind = 'Y' 
   AND (msisdn, subscr_id, email_address) is NOT NULL;
 ```
+Output:
 
-![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true "Output: ")
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
 ### B. In which month did the most subscribers connect (join_date) and in which the least?
 
