@@ -253,14 +253,29 @@ Output:
 
 The least subscribers connect:
 ```sql
-SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
-FROM output_tab  GROUP BY j_month 
-HAVING COUNT (j_month)=( 
-SELECT min(mycount) 
-FROM ( 
-SELECT j_month, COUNT(j_month) mycount 
-FROM output_tab 
-GROUP BY j_month)b1);
+SELECT 
+  j_month AS min_j_month, 
+  count(j_month) as least_subs_connected 
+FROM 
+  output_tab 
+GROUP BY 
+  j_month 
+HAVING 
+  COUNT (j_month)=(
+    SELECT 
+      min(mycount) 
+    FROM 
+      (
+        SELECT 
+          j_month, 
+          COUNT(j_month) mycount 
+        FROM 
+          output_tab 
+        GROUP BY 
+          j_month
+      ) b
+  );
+
 ```
 Output:
 
@@ -306,13 +321,52 @@ Output:
 V 1. Szybsza metoda lecz zwraca tylko 1 rekord
 
 ```SQL
-SELECT age_band, SUM(avg_3_mths_spend)
-FROM output_tab
-GROUP BY age_band
-ORDER BY SUM(avg_3_mths_spend) DESC
-LIMIT 1;
+SELECT 
+  age_band, 
+  SUM(avg_3_mths_spend) AS max_avg_3_mths_spend_sum 
+FROM 
+  output_tab 
+GROUP BY 
+  age_band 
+ORDER BY 
+  SUM(avg_3_mths_spend) DESC 
+LIMIT 
+  1;
 ```
+
+Output:
+
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v1.png?raw=true)
+
 V 2. 
+
+```sql
+SELECT 
+  age_band, 
+  MAX(sum_of_spend) AS max_avg_3_mths_spend_sum 
+FROM 
+  (
+    SELECT 
+      sum(avg_3_mths_spend) AS sum_of_spend, 
+      age_band 
+    FROM 
+      output_tab 
+    GROUP BY 
+      age_band
+  ) als 
+GROUP BY 
+  age_band 
+ORDER BY 
+  MAX(sum_of_spend) DESC 
+LIMIT 
+  1;
+```
+
+Output:
+
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v2.png?raw=true)
+
+V 3. 
 
 ```SQL
 SELECT age_band, max(b1.sum_of_spend) as max_avg_3_mths_spend_sum
@@ -325,6 +379,9 @@ FROM    (SELECT age_band, (sum(avg_3_mths_spend_group)) AS sum_of_spend
         )b1
 GROUP BY  age_band;
 ```
+Output:
+
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v3.png?raw=true)
 
 <a name="d."></a>
 ### D. 
