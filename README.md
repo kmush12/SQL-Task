@@ -6,7 +6,7 @@ This is a simple project to transform records in a database.
 * [Installation](#installation)
 * [TASK 1](##task_1)
 * [TASK 2](#task_2)
-* [A.](###a.)
+* [A.](#a.)
 * [B.](##b.)
 * [C.](##c.)
 * [D.](#d.)
@@ -194,6 +194,7 @@ postal_sector,
 ```
 ## TASK 2
 
+<a name="a."></a>
 ### A. 
 #### The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
