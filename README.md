@@ -214,7 +214,7 @@ WHERE
 ```
 Output:
 
-![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
+![Algorithm schema](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
 <a name="b."></a>
 ### B. 
