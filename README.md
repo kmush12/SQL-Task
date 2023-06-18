@@ -318,7 +318,7 @@ Output:
 ### C. 
 #### Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
 
-V 1. Szybsza metoda lecz zwraca tylko 1 rekord
+V 1. 
 
 ```SQL
 SELECT 
@@ -336,7 +336,7 @@ LIMIT
 
 Output:
 
-![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v1.png?raw=true)
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c.png?raw=true)
 
 V 2. 
 
@@ -364,7 +364,7 @@ LIMIT
 
 Output:
 
-![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v2.png?raw=true)
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c.png?raw=true)
 
 V 3. 
 
@@ -381,7 +381,7 @@ GROUP BY  age_band;
 ```
 Output:
 
-![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c_v3.png?raw=true)
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_c.png?raw=true)
 
 <a name="d."></a>
 ### D. 
