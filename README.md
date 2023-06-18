@@ -4,13 +4,13 @@ This is a simple project to transform records in a database.
 
 ## Table of contents
 * [Installation](#installation)
-* [TASK 1](##task_1)
+* [TASK 1](#task_1)
 * [TASK 2](#task_2)
-* [A.](#a.)
-* [B.](#b.)
-* [C.](#c.)
-* [D.](#d.)
-* 
+* [A.](##a.)
+* [B.](##b.)
+* [C.](##c.)
+* [D.](##d.)
+  
 ## Installation
 
 ```bash
