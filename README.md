@@ -1,4 +1,4 @@
-# TASK
+# SQL project
 
 This is a simple project to transform records in a database.
 
@@ -13,8 +13,8 @@ $ docker exec -it postgresql bash
 $ psql -h localhost postgres task
 ```
 
-## Usage
-
+## TASK 1
+### Create table input
 ```sql
 CREATE TABLE input_tab
 (
@@ -72,7 +72,7 @@ CREATE TABLE input_tab
     all_marketing_optin_ind     TEXT
 );
 ```
-Load data from input.csv file.
+### Load data
 ```sql
 COPY input_tab(msisdn,subscr_id,
     email_address,
@@ -128,7 +128,8 @@ COPY input_tab(msisdn,subscr_id,
 FROM '/input.csv' 
 DELIMITER ',';
 ```
-Create output table.
+### Create table output.
+
 ```sql
 SELECT msisdn, 
 email_address, 
@@ -183,18 +184,23 @@ postal_sector,
  post_optin_ind,
  all_marketing_optin_ind FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 ```
-
+## TASK 2
 ### A. The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
 ```SQL
-SELECT msisdn, email_address
-FROM (SELECT *
-        FROM input_tab
-        WHERE age < '30' AND contract_end_dt <= CURRENT_DATE AND email_optin_ind = 'Y') sub
-        WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
-
-select * from OUTPUT_TAB;
+SELECT 
+  msisdn, 
+  email_address 
+FROM 
+  input_tab 
+WHERE 
+  age < '30' 
+  AND contract_end_dt <= CURRENT_DATE 
+  AND email_optin_ind = 'Y' 
+  AND (msisdn, subscr_id, email_address) is NOT NULL;
 ```
+
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
 ### B. In which month did the most subscribers connect (join_date) and in which the least?
 
