@@ -6,10 +6,10 @@ This is a simple project to transform records in a database.
 * [Installation](#installation)
 * [Task 1](#task_1)
 * [Task 2](#task_2)
-*   [A.](##a.)
-*  -[B.](##b.)
-* -[C.](##c.)
-* [D.](##d.)
+  * [A.](##a.)
+  * [B.](##b.)
+  * [C.](##c.)
+  * [D.](##d.)
   
 ## Installation
 
