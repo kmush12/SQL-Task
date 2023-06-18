@@ -1,3 +1,4 @@
+--Task 1
 CREATE TABLE input_tab
 (
     msisdn                      VARCHAR(11)    UNIQUE    NOT NULL,
@@ -182,3 +183,202 @@ SELECT
     post_optin_ind,
     all_marketing_optin_ind
 	FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
+
+--Task2
+
+--A
+
+SELECT 
+  msisdn, 
+  email_address 
+FROM 
+  input_tab 
+WHERE 
+  age < '30' 
+  AND contract_end_dt <= CURRENT_DATE 
+  AND email_optin_ind = 'Y' 
+  AND (msisdn, subscr_id, email_address) is NOT NULL;
+
+--B
+--v1
+--max
+
+SELECT 
+  j_month AS max_j_month, 
+  count(j_month) as most_subs_connected 
+FROM 
+  output_tab 
+GROUP BY 
+  j_month 
+HAVING 
+  COUNT (j_month)=(
+    SELECT 
+      MAX(mycount) 
+    FROM 
+      (
+        SELECT 
+          j_month, 
+          COUNT(j_month) mycount 
+        FROM 
+          output_tab 
+        GROUP BY 
+          j_month
+      ) b
+  );
+
+--min
+
+SELECT 
+  j_month AS min_j_month, 
+  count(j_month) as least_subs_connected 
+FROM 
+  output_tab 
+GROUP BY 
+  j_month 
+HAVING 
+  COUNT (j_month)=(
+    SELECT 
+      min(mycount) 
+    FROM 
+      (
+        SELECT 
+          j_month, 
+          COUNT(j_month) mycount 
+        FROM 
+          output_tab 
+        GROUP BY 
+          j_month
+      ) b
+  );
+
+--v2
+
+SELECT max_j_month, most_subs_connected, min_j_month, least_subs_connected
+FROM  (SELECT j_month AS max_j_month, count(j_month) AS most_subs_connected
+        FROM output_tab  
+        GROUP BY j_month 
+        HAVING COUNT (j_month)=( 
+                                SELECT MAX(mycount) 
+                                FROM ( 
+                                        SELECT j_month, COUNT(j_month) mycount 
+                                        FROM output_tab 
+                                        GROUP BY j_month
+                                    ) b1
+                                )
+        ) max,
+       (SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
+        FROM output_tab  GROUP BY j_month 
+        HAVING COUNT (j_month)=( 
+                                SELECT min(mycount) 
+                                FROM ( 
+                                        SELECT j_month, COUNT(j_month) mycount 
+                                        FROM output_tab 
+                                        GROUP BY j_month
+                                    ) b1
+                                )
+        ) min;
+
+--C
+
+--v1
+
+SELECT 
+  age_band, 
+  SUM(avg_3_mths_spend) AS max_avg_3_mths_spend_sum 
+FROM 
+  output_tab 
+GROUP BY 
+  age_band 
+ORDER BY 
+  SUM(avg_3_mths_spend) DESC 
+LIMIT 
+  1;
+
+--v2
+
+SELECT 
+  age_band, 
+  MAX(sum_of_spend) AS max_avg_3_mths_spend_sum 
+FROM 
+  (
+    SELECT 
+      sum(avg_3_mths_spend) AS sum_of_spend, 
+      age_band 
+    FROM 
+      output_tab 
+    GROUP BY 
+      age_band
+  ) als 
+GROUP BY 
+  age_band 
+ORDER BY 
+  MAX(sum_of_spend) DESC 
+LIMIT 
+  1;
+
+-- v3
+
+SELECT 
+  age_band, 
+  max(dat.sum_of_spend) as max_avg_3_mths_spend_sum 
+FROM 
+  (
+    SELECT 
+      age_band, 
+      (
+        sum(avg_3_mths_spend)
+      ) AS sum_of_spend 
+    FROM 
+      output_tab 
+    GROUP BY 
+      age_band
+  ) dat 
+GROUP BY 
+  age_band 
+ORDER BY 
+  MAX(sum_of_spend) DESC 
+LIMIT 
+  1;
+
+--D
+
+SELECT calls.tariff_name AS best_tariff_name_calls, sms.tariff_name AS best_tariff_name_sms, datas.tariff_name AS best_tariff_name_data
+FROM
+    (SELECT tariff_name, avg_3_mths_calls_usage
+    FROM output_tab 
+    WHERE avg_3_mths_calls_usage = (SELECT MAX(avg_3_mths_calls_usage) 
+                                    FROM output_tab
+                                    )
+    ) calls,
+    (SELECT tariff_name, avg_3_mths_sms_usage
+    FROM output_tab 
+    WHERE avg_3_mths_sms_usage =   (SELECT MAX(avg_3_mths_sms_usage) 
+                                    FROM output_tab
+                                    )
+    ) sms,
+    (SELECT tariff_name, avg_3_mths_data_usage
+    FROM output_tab 
+    WHERE avg_3_mths_data_usage =  (SELECT MAX(avg_3_mths_data_usage) 
+                                    FROM output_tab
+                                    )
+    ) datas;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
