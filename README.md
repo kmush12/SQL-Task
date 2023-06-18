@@ -185,6 +185,7 @@ postal_sector,
  all_marketing_optin_ind FROM input_tab WHERE (msisdn, subscr_id, email_address) IS NOT NULL;
 ```
 ## TASK 2
+
 ### A. The operator must create an e-mail advertising campaign for a specific group of customers. Selected subscribers who are under 30 years of age have an active contract (contract_end_dt) and have opted in to email advertising (email_optin_ind).
 
 ```SQL
@@ -199,23 +200,43 @@ WHERE
   AND email_optin_ind = 'Y' 
   AND (msisdn, subscr_id, email_address) is NOT NULL;
 ```
-
+Output:
 ![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_a.png?raw=true)
 
 ### B. In which month did the most subscribers connect (join_date) and in which the least?
 
-V1. W 2 zapytaniach 
+V1. In 2 queries
+
+The most subscribers connect:
 ```SQL
-SELECT j_month AS max_j_month, count(j_month) as most_subs_connected
-FROM output_tab  GROUP BY j_month 
-HAVING COUNT (j_month)=( 
-SELECT MAX(mycount) 
-FROM ( 
-SELECT j_month, COUNT(j_month) mycount 
-FROM output_tab 
-GROUP BY j_month)b1);
+SELECT 
+  j_month AS max_j_month, 
+  count(j_month) as most_subs_connected 
+FROM 
+  output_tab 
+GROUP BY 
+  j_month 
+HAVING 
+  COUNT (j_month)=(
+    SELECT 
+      MAX(mycount) 
+    FROM 
+      (
+        SELECT 
+          j_month, 
+          COUNT(j_month) mycount 
+        FROM 
+          output_tab 
+        GROUP BY 
+          j_month
+      ) b
+  );
+```
+Output:
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v1_max.png?raw=true)
 
-
+The least subscribers connect:
+```sql
 SELECT j_month AS min_j_month, count(j_month) as least_subs_connected
 FROM output_tab  GROUP BY j_month 
 HAVING COUNT (j_month)=( 
@@ -225,10 +246,12 @@ SELECT j_month, COUNT(j_month) mycount
 FROM output_tab 
 GROUP BY j_month)b1);
 ```
+Output:
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v1_min.png?raw=true)
 
-V2. W 1 zapytaniu
+V2. In 1 query
+
 ```SQL
-
 SELECT max_j_month, most_subs_connected, min_j_month, least_subs_connected
 FROM  (SELECT j_month AS max_j_month, count(j_month) AS most_subs_connected
         FROM output_tab  
@@ -254,6 +277,9 @@ FROM  (SELECT j_month AS max_j_month, count(j_month) AS most_subs_connected
                                 )
         ) min;
 ```
+
+Output:
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_b_v2.png?raw=true)
 
 ### C. Which age bracket has the highest average monthly spend (avg_3_mths_spend) in each quarter of the year each year.
 
@@ -283,22 +309,56 @@ GROUP BY  age_band;
 ### D. Which tariff (tariff_name) is the most advantageous for the operator, taking into account separately calls, text messages and data transmission per year. Use the avg_3_mths_*usage columns.
 
 ```SQL
-SELECT calls.tariff_name AS best_tariff_name_calls, sms.tariff_name AS best_tariff_name_sms, datas.tariff_name AS best_tariff_name_data
-FROM
-(SELECT tariff_name, avg_3_mths_calls_usage
-FROM output_tab 
-WHERE avg_3_mths_calls_usage = (SELECT MAX(avg_3_mths_calls_usage) 
-FROM output_tab)) calls,
-(SELECT tariff_name, avg_3_mths_sms_usage
-FROM output_tab 
-WHERE avg_3_mths_sms_usage = (SELECT MAX(avg_3_mths_sms_usage) 
-FROM output_tab)) sms,
-(SELECT tariff_name, avg_3_mths_data_usage
-FROM output_tab 
-WHERE avg_3_mths_data_usage = (SELECT MAX(avg_3_mths_data_usage) 
-FROM output_tab)) datas;
+SELECT 
+  calls.tariff_name AS best_tariff_name_calls, 
+  sms.tariff_name AS best_tariff_name_sms, 
+  datas.tariff_name AS best_tariff_name_data 
+FROM 
+  (
+    SELECT 
+      tariff_name, 
+      avg_3_mths_calls_usage 
+    FROM 
+      output_tab 
+    WHERE 
+      avg_3_mths_calls_usage = (
+        SELECT 
+          MAX(avg_3_mths_calls_usage) 
+        FROM 
+          output_tab
+      )
+  ) calls, 
+  (
+    SELECT 
+      tariff_name, 
+      avg_3_mths_sms_usage 
+    FROM 
+      output_tab 
+    WHERE 
+      avg_3_mths_sms_usage = (
+        SELECT 
+          MAX(avg_3_mths_sms_usage) 
+        FROM 
+          output_tab
+      )
+  ) sms, 
+  (
+    SELECT 
+      tariff_name, 
+      avg_3_mths_data_usage 
+    FROM 
+      output_tab 
+    WHERE 
+      avg_3_mths_data_usage = (
+        SELECT 
+          MAX(avg_3_mths_data_usage) 
+        FROM 
+          output_tab
+      )
+  ) datas;
 ```
-
+Output:
+![alt text](https://github.com/kmush12/SQL-Task/blob/master/tab_d.png?raw=true)
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
